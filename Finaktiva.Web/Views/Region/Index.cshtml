@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Model.Entidad.Region>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoRegion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreRegion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodigoRegion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreRegion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CodigoRegion }) |
+            @Html.ActionLink("EditRegion", "EditRegion", new { id = item.CodigoRegion }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CodigoRegion }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CodigoRegion })
+        </td>
+    </tr>
+}
+
+</table>
+

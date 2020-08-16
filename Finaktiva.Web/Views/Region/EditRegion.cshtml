@@ -1,0 +1,87 @@
+﻿@model Model.Entidad.RegionCiudad
+
+@{
+    ViewBag.Title = "EditRegion";
+}
+
+<h2>EditRegion</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <fieldset>
+            <div style="display: inline-block; width: 49%; vertical-align: top;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NombreRegion, "Región: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NombreRegion, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>
+            </div>
+            <div style="display: inline-block; width: 49%; vertical-align: top;">
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" id="agregarCiudades" value="Agregar ciudad" />
+                </div>
+            </div>
+        </fieldset>
+
+        <p></p>
+        <div class="container form-horizontal" id="containerCiudades" style="display: none">
+            <input class="form-control" id="idCiudad" /> |
+            <input type="button" class="btn btn-primary glyphicon glyphicon-plus" id="agregarCiudad" value="+" disabled="disabled" />
+        </div>
+        <p></p>
+
+        @if (ViewBag.Rows > 0)
+        {
+            <div class="container">
+                <table id="TableCiudades" class=" table order-list">
+                    <thead>
+                        <tr>
+                            <td>Nombre Ciudad</td>
+                            <td>Estado</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 0; }
+                        @foreach (var item in ViewBag.RegionCiudades)
+                        {
+                            { count = count + 1; }
+                            <tr>
+                                <td class="col-sm-2">
+                                    <input style="width:500px" type="text" class="form-control" value="@item.NombreCiudad.ToString().Trim()" readonly />
+                                    <input type="hidden" class="form-control" name="CodigoCiudad@{@count}" id="CodigoCiudad@{@count}" value="@item.CodigoCiudad" />
+                                </td>
+                                <td class="col-sm-2">
+                                    <input style="width:500px" type="text" class="form-control" value="@item.Estado.ToString().Trim()" readonly />
+                                </td>
+                                <td>
+                                    <input type="button" class="btn btn-md btn-danger" value="Eliminar" />
+                                    <input type="hidden" class="form-control" name="CodigoCiudad@{@count}" id="CodigoCiudad@{@count}" value="@item.CodigoCiudad" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <input type="hidden" id="cantiMatOC" name="cantiMatOC" value="@count" />
+            </div>
+        }
+        else
+        {
+            <div class="container">
+                No tiene ciudades asociadas.
+            </div>
+        }
+
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
